@@ -29,9 +29,17 @@ complete <- function(directory, id = 1:332) {
 }
 
 
-# get the files
-# create the externallly accessed data model
+# Part 3
+corr <- function(directory, threshold = 0) {
+  
+}
 
-# inside of the loop grab the Id of the current file
-# add that information to a data table that exists only inside of the loop
 
+# get a directory of files
+corr_files <- complete("specdata")
+
+for (i in 1:dim(corr_files[1])) {
+  if (corr_files[i,2] >= 400) {
+    print(corr_files)
+  }
+}

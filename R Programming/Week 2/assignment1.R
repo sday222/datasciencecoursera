@@ -16,20 +16,30 @@ complete <- function(directory, id = 1:332) {
   complete_files <- list.files(directory, full.names = TRUE)
   
   complete_data <- data.frame(id=numeric(0), nobs=numeric(0))
+  single_file <- data.frame(id=numeric(0), nobs=numeric(0))
+  
   for (i in id) {
-    single_file <- data.frame(id=numeric(0), nobs=numeric(0))
-    single_file$id <- i
-    single_file$nobs <- sum(complete.cases(read.csv(complete_files[i])))
+    single_file[1, 1] <- i
+    single_file[1, 2] <- sum(complete.cases(read.csv(complete_files[i])))
     
     complete_data <- rbind(complete_data, single_file)
   }
+  
+  complete_data
 }
 
 
-# get the files
-# create the externallly accessed data model
+# Part 3
+corr <- function(directory, threshold = 0) {
+  
+}
 
-# inside of the loop grab the Id of the current file
-# add that information to a data table that exists only inside of the loop
 
-# 
+# get a directory of files
+corr_files <- complete("specdata")
+
+for (i in 1:dim(corr_files[1])) {
+  if (corr_files[i,2] >= 400) {
+    print(corr_files)
+  }
+}
