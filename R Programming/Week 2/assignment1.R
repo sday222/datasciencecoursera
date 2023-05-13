@@ -35,11 +35,24 @@ corr <- function(directory, threshold = 0) {
 }
 
 
-# get a directory of files
-corr_files <- complete("specdata")
+# get all of the files in the directory
+corr_files <- list.files("specdata", full.names = TRUE)
 
-for (i in 1:dim(corr_files[1])) {
-  if (corr_files[i,2] >= 400) {
-    print(corr_files)
+# of the files in the directory, how many are complete
+complete_corr_files <- complete("specdata")
+
+# set empty vector for files that will be processed later
+files_to_read <- c()
+
+for (i in 1:length(complete_corr_files[[1]])) {
+  if (complete_corr_files[[i,2]] >= 1000) {
+    files_to_read  <- c(files_to_read, complete_corr_files[i,1])
   }
 }
+
+corr_data_frame <- data.frame()
+for (i in 1:length(files_to_read)) {
+  corr_data_frame <- rbind(corr_data_frame, read.csv(corr_files[i]))
+}
+
+cor(corr_data_frame$sulfate, corr_data_frame$nitrate, na.rm = TRUE)
